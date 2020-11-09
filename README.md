@@ -12,20 +12,24 @@ Click here to view [Climate Analysis Method](https://nbviewer.jupyter.org/github
 
 As the graph presented below, it shows that from August 2016 to August 2017 the high number of precipitation is in September 2016, February 2017, April 2017 and July 2017.
 
+
 <p align='center'>
     <img src='Images/pd_bar_prcp_12m.png'/>
 </p>
 
+---
 ### Station Analysis
 
 There are 9 stations available in this dataset. The most active station is station USC00519281: WAIKIKI 717.2, HI, US. The station analysis will be based on the most active station in Honolulu, Hawaii. The most active station is the station with the highest number of observations.
 
 As the graph presented below, it shows that the most frequent temperature at station USC00519281 is approximately between 75 to 76 fahrenheit degrees (F).
 
+
 <p align='center'>
     <img src='Images/hist_stUSC00519281.png'/>
 </p>
 
+---
 ### Climate App
 
 Time to plan the holiday vacation! Download the [climate app](app.py), open Terminal from the folder that you have stored climate app, run `python app.py` and open the route in your broswer that is poped up. Here is the available route.
@@ -48,18 +52,22 @@ The average temperature in June and December are 74.94 and 71.04 repectively. By
 
 The vacation dates will be between 2017-12-28 to 2018-01-03. Therefore, the available date in dataset to be applied to forcast the climate will be between 2016-12-28 to 2017-01-03. As the graph presented below, the maximum temperature is 77F, the minimum temperature is 62F and the average temperature is 69.81F. The bar graph is plotted based on the average temperature. The error bar is plotted based on the differences between max and min temperature. On the other words, it means that the temperature could be between 68F to 77F.
 
+
 <p align='center'>
     <img src='Images/bar_plot_with_error_bars.png'/>
 </p>
 
+---
 ### Trip: Daily Rainfall Average
 
 Forcasting the rainfall for the trip by applying the date in the previous analysis. The station with the lowest rainfall is station ID USC00519523: WAIMANALO EXPERIMENTAL FARM. The analysis was excluded the station with no data which is station ID USC00517948. As the result, the dairy rainfall averager could be presented as the graph below.
+
 
 <p align='center'>
     <img src='Images/trip_plot_rainfall.png'/>
 </p>
 
+---
 ### Trip: Dairy Temperature
 
 As the presented graph below, it illustrates the minimum, maximum and average temperture between 2016-12-28 to 2017-01-03 as the representative of the vacation dates which is 2017-12-28 to 2018-01-03. 
