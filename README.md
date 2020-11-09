@@ -29,7 +29,7 @@ As the graph presented below, it shows that the most frequent temperature at sta
     <img src='Images/hist_stUSC00519281.png'/>
 </p>
 
--
+---
 ### Climate App
 
 Time to plan the holiday vacation! Download the [climate app](app.py), open Terminal from the folder that you have stored climate app, run `python app.py` and open the route in your broswer that is poped up. Here is the available route.
