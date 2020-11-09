@@ -42,12 +42,14 @@ Time to plan the holiday vacation! Download the [climate app](app.py), open Term
 
 *Note: The format for date will be YYYY-MM-DD, i.e. 2016-08-23.*
 
+---
 ### June and December Temperture Analysis
 
 The average temperature in June and December are 74.94 and 71.04 repectively. By running unpaired t-test, the *p* value equals 0.00 indicates that the mean of temperture for both month is significantly different. 
 
 *Note*: Applied unpaired t-test dues to the comparison of the means of different group. The temperature was observed in the different times of year and different stations.
 
+---
 ### Vacation Dates and Temperature Forecast
 
 The vacation dates will be between 2017-12-28 to 2018-01-03. Therefore, the available date in dataset to be applied to forcast the climate will be between 2016-12-28 to 2017-01-03. As the graph presented below, the maximum temperature is 77F, the minimum temperature is 62F and the average temperature is 69.81F. The bar graph is plotted based on the average temperature. The error bar is plotted based on the differences between max and min temperature. On the other words, it means that the temperature could be between 68F to 77F.
