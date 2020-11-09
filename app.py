@@ -26,8 +26,14 @@ Station = Base.classes.station
 # Flask set up
 app = Flask(__name__)
 
+# To keep order in dictionary when passing jsonify function
+app.config['JSON_SORT_KEYS'] = False
+
+
 # Flask route
-## Home route
+
+# Home route
+
 @app.route("/")
 def welcome():
     """List all available api routes."""
@@ -42,7 +48,9 @@ def welcome():
         f"/api/v1.0/start=YYYY-MM-DD/end=YYYY-MM-DD<br/>"
     )
 
-## Precipitation rount
+
+# Precipitation rount
+
 @app.route("/api/v1.0/precipitation")
 def precipitation():
     # Create our session (link) from Python to the DB
@@ -64,7 +72,9 @@ def precipitation():
 
     return jsonify(all_prcp)
 
-## Stations route 
+
+# Stations route
+
 @app.route("/api/v1.0/stations")
 def stations():
     # Create our session (link) from Python to the DB
@@ -72,22 +82,30 @@ def stations():
 
     """Return a list of all stations"""
     # Query all stations
-    results = session.query(Measurement.station, Station.name).filter(Measurement.station == Station.station)\
-                                                              .distinct().all()
+    results = session.query(Measurement.station,
+                            Station.name,
+                            Station.latitude,
+                            Station.longitude,
+                            Station.elevation).filter(Measurement.station == Station.station)\
+        .distinct().all()
 
     session.close()
 
     # Create a dictionary from the row data and append to a list of all_stn
     all_stn = []
-    for stn_id, stn_name in results:
+    for stn_id, stn_name, stn_lat, stn_lng, stn_elv in results:
         stn_dict = {}
         stn_dict['Station ID'] = stn_id
-        stn_dict['Stantion Name'] = stn_name
+        stn_dict['Station Name'] = stn_name
+        stn_dict['Location'] = {'Latitude': stn_lat, 'Longitude': stn_lng}
+        stn_dict['Elevation'] = stn_elv
         all_stn.append(stn_dict)
 
     return jsonify(all_stn)
 
-## TOBS route
+
+# TOBS route
+
 @app.route("/api/v1.0/tobs")
 def tobs():
     # Create our session (link) from Python to the DB
@@ -95,7 +113,8 @@ def tobs():
 
     """Return a list of all TOBS"""
     # Last data point
-    last_date_query = session.query(Measurement.date).order_by(Measurement.date.desc()).first()
+    last_date_query = session.query(Measurement.date).order_by(
+        Measurement.date.desc()).first()
     last_date_str = last_date_query[0]
     last_date = dt.datetime.strptime(last_date_str, '%Y-%m-%d').date()
 
@@ -105,53 +124,55 @@ def tobs():
 
     # Get the most active station
     most_active = session.query(Measurement.station, Station.name, func.count(Measurement.station))\
-                                .group_by(Measurement.station)\
-                                .order_by(func.count(Measurement.station).desc())\
-                                .first()
+        .group_by(Measurement.station)\
+        .order_by(func.count(Measurement.station).desc())\
+        .first()
 
     # Query all the data related to the most active station in the past year
     results = session.query(Measurement.date, Measurement.tobs)\
-                    .filter(Measurement.date <= last_date_str)\
-                    .filter(Measurement.date >= yr_ago_date_str)\
-                    .filter(Measurement.station == most_active[0])\
-                    .all()
+        .filter(Measurement.date <= last_date_str)\
+        .filter(Measurement.date >= yr_ago_date_str)\
+        .filter(Measurement.station == most_active[0])\
+        .all()
 
     session.close()
 
     # Create a dictionary from the row data and append to a list of the most active station
-    act_stn = [
-        {
-            'StationID': most_active[0],
-            'StationName': most_active[1]
-        }
-    ]
+    act_stn = []
     for act_date, act_tobs in results:
-        act_stn_dict = {}
+        act_stn_dict = {
+            'Station ID': most_active[0],
+            'Station Name': most_active[1]
+        }
         act_stn_dict['Date'] = act_date
         act_stn_dict['TOBS'] = act_tobs
         act_stn.append(act_stn_dict)
 
     return jsonify(act_stn)
 
-## Start Date route
+
+# Start Date route
+
 @app.route("/api/v1.0/start=<start>")
 def start_date(start):
     # Create our session (link) from Python to the DB
     session = Session(engine)
 
     # Query all the data related to the most ctive station in the past year
-    results = session.query(func.min(Measurement.tobs), 
-                            func.max(Measurement.tobs), 
+    results = session.query(func.min(Measurement.tobs),
+                            func.max(Measurement.tobs),
                             func.avg(Measurement.tobs))\
-                            .filter(Measurement.date >= start).all()
+        .filter(Measurement.date >= start).all()
 
-    first_date = session.query(Measurement.date).order_by(Measurement.date).first()
-    last_date = session.query(Measurement.date).order_by(Measurement.date.desc()).first()
+    first_date = session.query(Measurement.date).order_by(
+        Measurement.date).first()
+    last_date = session.query(Measurement.date).order_by(
+        Measurement.date.desc()).first()
 
     session.close()
-    
+
     # Creat a date list of dataset
-    date_list = pd.date_range(start=first_date[0] ,end=last_date[0])
+    date_list = pd.date_range(start=first_date[0], end=last_date[0])
 
     # Create a dictionary from the row data and append to a list of strt_data
     strt_data = []
@@ -160,39 +181,43 @@ def start_date(start):
             'Start Date': start,
             'End Date': last_date[0]
         }
-        strt_data_dict['TMIN'] = tmin
-        strt_data_dict['TMAX'] = tmax
-        strt_data_dict['TAVG'] = tavg
+        strt_data_dict['T-MIN'] = tmin
+        strt_data_dict['T-MAX'] = tmax
+        strt_data_dict['T-AVG'] = tavg
         strt_data.append(strt_data_dict)
-        
+
         # If statement for date input in API search
         if start in date_list:
             return jsonify(strt_data)
         else:
             return jsonify({
                 "error": f"Date: {start} not found. Date must be between {first_date[0]} and {last_date[0]}"
-            }), 404    
+            }), 404
 
-## Start and End Date route
+
+# Start and End Date route
+
 @app.route("/api/v1.0/start=<start>/end=<end>")
 def period(start, end):
     # Create our session (link) from Python to the DB
     session = Session(engine)
 
     # Query all the data related to the most ctive station in the past year
-    results = session.query(func.min(Measurement.tobs), 
-                            func.max(Measurement.tobs), 
+    results = session.query(func.min(Measurement.tobs),
+                            func.max(Measurement.tobs),
                             func.avg(Measurement.tobs))\
-                            .filter(Measurement.date >= start)\
-                            .filter(Measurement.date <= end).all()
+        .filter(Measurement.date >= start)\
+        .filter(Measurement.date <= end).all()
 
-    first_date = session.query(Measurement.date).order_by(Measurement.date).first()
-    last_date = session.query(Measurement.date).order_by(Measurement.date.desc()).first()
+    first_date = session.query(Measurement.date).order_by(
+        Measurement.date).first()
+    last_date = session.query(Measurement.date).order_by(
+        Measurement.date.desc()).first()
 
     session.close()
 
     # Create a dictionary from the row data and append to a list of period_data
-    date_list = pd.date_range(start=first_date[0] ,end=last_date[0])
+    date_list = pd.date_range(start=first_date[0], end=last_date[0])
 
     period_data = []
 
@@ -201,9 +226,9 @@ def period(start, end):
             'Start Date': start,
             'End Date': end
         }
-        period_data_dict['TMIN'] = tmin
-        period_data_dict['TMAX'] = tmax
-        period_data_dict['TAVG'] = tavg
+        period_data_dict['T-MIN'] = tmin
+        period_data_dict['T-MAX'] = tmax
+        period_data_dict['T-AVG'] = tavg
         period_data.append(period_data_dict)
 
         # If statement for date input in API search
@@ -213,13 +238,13 @@ def period(start, end):
             elif start > end:
                 return jsonify({
                     "error": f'{start} is greater than {end}'
-                })                
+                })
         else:
             return jsonify({
                 "error": f"Date: {start} to {end} not found. Date must be between {first_date[0]} and {last_date[0]}"
-            }), 404    
+            }), 404
 
-        
-##  app.run statement here
+
+# app.run statement
 if __name__ == "__main__":
     app.run(debug=True)
