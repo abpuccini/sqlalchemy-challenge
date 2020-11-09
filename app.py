@@ -46,6 +46,8 @@ def welcome():
         f"/api/v1.0/tobs<br/>"
         f"/api/v1.0/start=YYYY-MM-DD<br/>"
         f"/api/v1.0/start=YYYY-MM-DD/end=YYYY-MM-DD<br/>"
+        f"{'-'*80}<br/>"
+        f"Note: The format for date will be YYYY-MM-DD, i.e. 2016-08-23."
     )
 
 
