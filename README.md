@@ -69,7 +69,7 @@ The vacation dates will be between 2017-12-28 to 2018-01-03. Therefore, the avai
 Forcasting the rainfall for the trip by applying the date in the previous analysis. The station with the lowest rainfall is station ID USC00519523: WAIMANALO EXPERIMENTAL FARM. The analysis was excluded the station with no data which is station ID USC00517948. As the result, the dairy rainfall averager could be presented as the graph below.
 
 
-<table>
+<table align=center>
     <tr>
         <td align=center><img src="Images/trip_plot_rainfall.png" ></td>
     </tr>
