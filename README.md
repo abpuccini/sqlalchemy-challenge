@@ -71,10 +71,10 @@ Forcasting the rainfall for the trip by applying the date in the previous analys
 
 <table>
     <tr>
-        <td align=center><img src="Images/rainfall_table.png" ></td>
+        <td align=center><img src="Images/trip_plot_rainfall.png" ></td>
     </tr>
     <tr>
-        <td align=center><img src='Images/trip_plot_rainfall.png' ></td>
+        <td align=center><img src='Images/rainfall_table.png' ></td>
     </tr>
  </table>
 
