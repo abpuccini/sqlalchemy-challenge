@@ -84,8 +84,8 @@ Forcasting the rainfall for the trip by applying the date in the previous analys
 
 As the presented graph below, it illustrates the minimum, maximum and average temperture between 2016-12-28 to 2017-01-03 as the representative of the vacation dates which is 2017-12-28 to 2018-01-03. 
 
-<table>
-    <tr align=center>
+<table align=center>
+    <tr>
         <td><img src="Images/temp_trip.png" ></td>
         <td><img src='Images/trip_plot.png' ></td>
     </tr>
