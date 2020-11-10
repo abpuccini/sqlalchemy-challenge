@@ -51,7 +51,7 @@ The average temperature in June and December are 74.94 and 71.04 respectively. B
     <img src='Images/jun_dec.png'/>
 </p>
 
-*Note*: Applied unpaired t-test due to the comparison of the means of different group. The temperature was observed in the different times of year and different stations.
+*Note*: Applied unpaired t-test due to the comparison of the means of different groups. The temperature was observed in the different times of year and different stations.
 
 ---
 ### Vacation Dates and Temperature Forecast
