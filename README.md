@@ -47,6 +47,10 @@ Time to plan the holiday vacation! Download the [climate app](app.py), open Term
 
 The average temperature in June and December are 74.94 and 71.04 repectively. By running unpaired t-test, the *p* value equals 0.00 indicates that the mean of temperture for both month is significantly different. 
 
+<p align='center'>
+    <img src='Images/jun_dec.png'/>
+</p>
+
 *Note*: Applied unpaired t-test dues to the comparison of the means of different group. The temperature was observed in the different times of year and different stations.
 
 ---
@@ -65,18 +69,27 @@ The vacation dates will be between 2017-12-28 to 2018-01-03. Therefore, the avai
 Forcasting the rainfall for the trip by applying the date in the previous analysis. The station with the lowest rainfall is station ID USC00519523: WAIMANALO EXPERIMENTAL FARM. The analysis was excluded the station with no data which is station ID USC00517948. As the result, the dairy rainfall averager could be presented as the graph below.
 
 
-<p align='center'>
-    <img src='Images/trip_plot_rainfall.png'/>
-</p>
+<table>
+    <tr>
+        <td><img src="Images/rainfall_table.png" ></td>
+    </tr>
+    <tr>
+        <td><img src='Images/trip_plot_rainfall.png' ></td>
+    </tr>
+ </table>
+
 
 ---
 ### Trip: Dairy Temperature
 
 As the presented graph below, it illustrates the minimum, maximum and average temperture between 2016-12-28 to 2017-01-03 as the representative of the vacation dates which is 2017-12-28 to 2018-01-03. 
 
-<p align='center'>
-    <img src='Images/trip_plot.png'/>
-</p>
+<table>
+    <tr>
+        <td><img src="Images/temp_trip.png" ></td>
+        <td><img src='Images/trip_plot.png' ></td>
+    </tr>
+ </table>
 
 ---
 
