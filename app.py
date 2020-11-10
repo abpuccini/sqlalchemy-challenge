@@ -38,22 +38,24 @@ app.config['JSON_SORT_KEYS'] = False
 def welcome():
     """List all available api routes."""
     return (
-        f"Welcome to Honolulu Climate API!<br/>"
+        f"<b>Welcome to Honolulu Climate API!</b><br/>"
         f"{'*'*30}<br/>"
-        f"Available Routes:<br/>"
+        f"<b>Available Routes:</b><br/>"
         f"/api/v1.0/precipitation<br/>"
         f"/api/v1.0/stations<br/>"
         f"/api/v1.0/tobs<br/>"
         f"/api/v1.0/start=YYYY-MM-DD<br/>"
         f"/api/v1.0/start=YYYY-MM-DD/end=YYYY-MM-DD<br/>"
         f"{'-'*80}<br/>"
-        f"Note: The format for date will be YYYY-MM-DD, i.e. 2016-08-23."
+        f"<b>Note:</b><br/>"
+        f"* Route <b>tobs</b> will show only the result of the most active station.<br/>"
+        f"* The <b>date format</b> will be YYYY-MM-DD, i.e. 2016-08-23."
     )
 
 
 # Precipitation rount
 
-@app.route("/api/v1.0/precipitation")
+@ app.route("/api/v1.0/precipitation")
 def precipitation():
     # Create our session (link) from Python to the DB
     session = Session(engine)
@@ -77,7 +79,7 @@ def precipitation():
 
 # Stations route
 
-@app.route("/api/v1.0/stations")
+@ app.route("/api/v1.0/stations")
 def stations():
     # Create our session (link) from Python to the DB
     session = Session(engine)
@@ -108,7 +110,7 @@ def stations():
 
 # TOBS route
 
-@app.route("/api/v1.0/tobs")
+@ app.route("/api/v1.0/tobs")
 def tobs():
     # Create our session (link) from Python to the DB
     session = Session(engine)
