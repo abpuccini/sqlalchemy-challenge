@@ -34,11 +34,25 @@ As the graph presented below, it shows that the most frequent temperature at sta
 
 Time to plan the holiday vacation! Download the [climate app](app.py), open Terminal from the folder that you have stored climate app, run `python app.py` and open the route in your browser that is popped up. Here is the available route.
 
-- To view the precipitation data > /api/v1.0/precipitation
-- To view the station information > /api/v1.0/stations
-- To view the most active station temperature observations > /api/v1.0/tobs
-- To view the minimum, maximum and average temperature from specific date > /api/v1.0/start=YYYY-MM-DD
-- To view the minimum, maximum and average temperature from specific date range > /api/v1.0/start=YYYY-MM-DD/end=YYYY-MM-DD
+- Precipitation data
+    * Route: /api/v1.0/precipitation
+    * Info.: Dairy precipitation data between January 2010 to August 2017 
+
+- Station information
+    * Route: /api/v1.0/stations
+    * Info.: Station ID and name, Station Min/Max/Avg temperature, Station Min/Max/Avg precipitation  
+    
+- The most active station
+    * Route: /api/v1.0/tobs
+    * Info.: Station ID, name and temperature observations
+
+- API data from specific start date
+    * Route: /api/v1.0/start=YYYY-MM-DD
+    * Info: Minimum, Maximum and Average temperature between start date to the last date of dataset
+
+- API data from specific start and end date
+    * Route: /api/v1.0/start=YYYY-MM-DD/end=YYYY-MM-DD
+    * Info: Minimum, Maximum and Average temperature between start and end date specified in API route  
 
 *Note: The format for date will be YYYY-MM-DD, i.e. 2016-08-23.*
 
