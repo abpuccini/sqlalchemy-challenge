@@ -54,7 +54,7 @@ Time to plan the holiday vacation! Download the [climate app](app.py), open Term
     * Route: /api/v1.0/start=YYYY-MM-DD/end=YYYY-MM-DD
     * Info: Minimum, Maximum and Average temperature between start and end date specified in API route  
 
-*Note: The format for date will be YYYY-MM-DD, i.e. 2016-08-23.*
+*Note: The ***date format*** will be YYYY-MM-DD, i.e. 2016-08-23.*
 
 ---
 ### June and December Temperature Analysis
