@@ -90,19 +90,39 @@ def stations():
                             Station.name,
                             Station.latitude,
                             Station.longitude,
-                            Station.elevation).filter(Measurement.station == Station.station)\
-        .distinct().all()
+                            Station.elevation,
+                            func.min(Measurement.prcp),
+                            func.max(Measurement.prcp),
+                            func.avg(Measurement.prcp),
+                            func.min(Measurement.tobs),
+                            func.max(Measurement.tobs),
+                            func.avg(Measurement.tobs))\
+        .filter(Measurement.station == Station.station)\
+        .group_by(Measurement.station).all()
 
     session.close()
 
     # Create a dictionary from the row data and append to a list of all_stn
     all_stn = []
-    for stn_id, stn_name, stn_lat, stn_lng, stn_elv in results:
+    for stn_id, stn_name, stn_lat, stn_lng, stn_elv, stn_pmin, stn_pmax, stn_pavg, stn_tmin, stn_tmax, stn_tavg in results:
         stn_dict = {}
         stn_dict['Station ID'] = stn_id
         stn_dict['Station Name'] = stn_name
         stn_dict['Location'] = {'Latitude': stn_lat, 'Longitude': stn_lng}
         stn_dict['Elevation'] = stn_elv
+        stn_dict['Meteorology'] = {
+            'Temperature': {
+                'Min': stn_tmin,
+                'Max': stn_tmax,
+                'Avg': round(stn_tavg, 2)
+            },
+            'Precipitation': {
+                'Min': stn_pmin,
+                'Max': stn_pmax,
+                'Avg': round(stn_pavg, 2)
+            }
+        }
+
         all_stn.append(stn_dict)
 
     return jsonify(all_stn)
